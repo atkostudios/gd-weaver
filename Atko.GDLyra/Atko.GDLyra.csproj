@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Atko.GDLyra</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>ComfortStereo</Authors>
+    <Company>Atko</Company>
+    <Description>A utility library for Godot Engine that makes it easier to find and use nodes.</Description>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GodotSharp">
+      <HintPath>../../.mono/assemblies/GodotSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <PackageReference Include="Fody" Version="3.3.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NullGuard.Fody" Version="1.8.5" />
+  </ItemGroup>
+</Project>
