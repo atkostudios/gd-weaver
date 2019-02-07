@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Atko.GDLyra.Utility;
+using Atko.GDWeaver.Utility;
 using Godot;
 
-namespace Atko.GDLyra.Search
+namespace Atko.GDWeaver.Searching
 {
     public struct TreeEnumerator : IEnumerator<Node>
     {

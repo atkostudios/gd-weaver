@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace Atko.GDLyra.Search
+namespace Atko.GDWeaver.Searching
 {
     public struct QueriableTreeEnumerator<TElement, TInner, TInnerElement> : IEnumerator<TElement>
         where TInner : struct, IEnumerator<TInnerElement>

@@ -1,39 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Atko.GDLyra.Utility;
-using Atko.GDLyra.Search;
+using Atko.GDWeaver.Utility;
+using Atko.GDWeaver.Searching;
+using Atko.Mirra.Images;
 using Godot;
 
 using static System.Reflection.BindingFlags;
-using static Atko.GDLyra.Installation.Install;
+using static Atko.GDWeaver.Installation.Install;
+using System.Linq;
 
-namespace Atko.GDLyra.Installation
+namespace Atko.GDWeaver.Installation
 {
     public static class Installer
     {
         struct Target
         {
-            public MemberInfo Member { get; }
+            public AccessorImage Accessor { get; }
             public InstallAttribute Attribute { get; }
 
-            public Target(MemberInfo member, InstallAttribute attribute)
+            public Target(AccessorImage accessor, InstallAttribute attribute)
             {
-                Member = member;
+                Accessor = accessor;
                 Attribute = attribute;
             }
         }
 
         static class Targets
         {
-            const BindingFlags Flags = Instance | NonPublic | Public | DeclaredOnly;
-
             static Dictionary<Type, Target[]> Cache { get; } = new Dictionary<Type, Target[]>();
 
             static List<Target> Buffer { get; } = new List<Target>();
-            static HashSet<MemberInfo> Seen { get; } = new HashSet<MemberInfo>();
+            static HashSet<AccessorImage> Seen { get; } = new HashSet<AccessorImage>();
 
-            public static Target[] GetTargets(Type type)
+            public static Target[] GetTargets(TypeImage type)
             {
                 if (Cache.TryGetValue(type, out var cached))
                 {
@@ -42,17 +42,14 @@ namespace Atko.GDLyra.Installation
 
                 lock (Buffer)
                 {
-                    foreach (var ancestor in type.Inheritance())
-                    {
-                        foreach (var property in ancestor.GetProperties(Flags))
-                        {
-                            Add(property);
-                        }
+                    var accessors = type
+                        .Accessors()
+                        .Where((current) => !current.IsStatic)
+                        .Where((current) => current.CanSet);
 
-                        foreach (var field in ancestor.GetFields(Flags))
-                        {
-                            Add(field);
-                        }
+                    foreach (var accessor in accessors)
+                    {
+                        Add(accessor);
                     }
 
                     var targets = Cache[type] = Buffer.ToArray();
@@ -64,14 +61,14 @@ namespace Atko.GDLyra.Installation
                 }
             }
 
-            static void Add(MemberInfo member)
+            static void Add(AccessorImage accessor)
             {
-                var attribute = member.GetCustomAttribute<InstallAttribute>();
+                var attribute = accessor.Attribute<InstallAttribute>();
                 if (attribute != null)
                 {
-                    if (Seen.Add(member))
+                    if (Seen.Add(accessor))
                     {
-                        Buffer.Add(new Target(member, attribute));
+                        Buffer.Add(new Target(accessor, attribute));
                     }
                 }
             }
@@ -97,7 +94,7 @@ namespace Atko.GDLyra.Installation
             /// <summary>
             /// The type of the target node to search for. Defaults to <see cref="Node"/>
             /// </summary>
-            public Type SearchType { get; }
+            public TypeImage SearchType { get; }
 
             /// <summary>
             /// True if the target node is an ancestor of the current node. Otherwise the target node is a descendant.
@@ -114,12 +111,12 @@ namespace Atko.GDLyra.Installation
             /// ancestor of the provided type and search for installed nodes using that ancestor as the root rather than
             /// the current node. If the specified root node is not found the root will default to the current node.
             /// </summary>
-            public Type FromType { get; }
+            public TypeImage FromType { get; }
 
-            public SearchParameters(InstallAttribute attribute, MemberInfo member)
+            public SearchParameters(InstallAttribute attribute, AccessorImage accessor)
             {
-                SearchName = attribute.HasFlag(TypeOnly) ? null : attribute.Name ?? member.Name;
-                SearchType = member.GetReturnType();
+                SearchName = attribute.HasFlag(TypeOnly) ? null : attribute.Name ?? accessor.ShortName;
+                SearchType = accessor.DeclaredType;
                 IsAncestor = attribute.HasFlag(Ancestor);
                 IsOptional = attribute.HasFlag(Optional);
                 FromType = attribute.From;
@@ -136,13 +133,13 @@ namespace Atko.GDLyra.Installation
 
             foreach (var target in Targets.GetTargets(type))
             {
-                var installed = Search(node, new SearchParameters(target.Attribute, target.Member));
+                var installed = Search(node, new SearchParameters(target.Attribute, target.Accessor));
                 if (installed == null)
                 {
                     continue;
                 }
 
-                node.DynamicSet(target.Member, installed);
+                target.Accessor.Set(node, installed);
             }
         }
 
@@ -160,18 +157,26 @@ namespace Atko.GDLyra.Installation
 
         static Node Search(Node node, SearchParameters parameters)
         {
-            var root = parameters.FromType != null
-                ? node.Ascend().At<Node>((current) => parameters.FromType.IsInstanceOfType(current)) ?? node
-                : node;
+            var root = node;
+
+            if (parameters.FromType != null)
+            {
+                root = node.Ascend().At((current) =>
+                {
+                    var type = current.GetType().Image();
+                    return type.IsAssignableTo(parameters.FromType);
+                });
+            }
 
             var nodes = parameters.IsAncestor ? root.Ascend() : root.Descend();
-            var result = nodes.At<Node>((current) =>
+            var result = nodes.At((current) =>
             {
-                return (parameters.SearchType == null || parameters.SearchType.IsInstanceOfType(current)) &&
+                var type = current.GetType().Image();
+                return (parameters.SearchType == null || type.IsAssignableTo(parameters.SearchType)) &&
                        (parameters.SearchName == null || parameters.SearchName == current.Name);
             });
 
-            if (result.Missing())
+            if (!result.Exists())
             {
                 if (!parameters.IsOptional)
                 {

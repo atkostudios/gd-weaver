@@ -1,4 +1,4 @@
-namespace Atko.GDLyra.Search
+namespace Atko.GDWeaver.Searching
 {
     enum TreeEnumerationMode
     {

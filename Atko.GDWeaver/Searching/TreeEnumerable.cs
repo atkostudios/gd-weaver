@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Atko.GDLyra.Search
+namespace Atko.GDWeaver.Searching
 {
     public struct TreeEnumerable<TElement, TInner, TInnerElement> : IEnumerable<TElement>
         where TElement : class

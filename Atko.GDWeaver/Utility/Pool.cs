@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Atko.GDLyra.Utility
+namespace Atko.GDWeaver.Utility
 {
     internal class Pool<T> where T : new()
     {

@@ -1,18 +1,13 @@
 ﻿using System;
 using Godot;
 
-namespace Atko.GDLyra.Search
+namespace Atko.GDWeaver.Searching
 {
-    public static class Probe
+    public static class Search
     {
-        public static bool Missing(this Node node)
-        {
-            return node == null || node.NativeInstance == IntPtr.Zero || node.IsQueuedForDeletion();
-        }
-
         public static bool Exists(this Node node)
         {
-            return !Missing(node);
+            return node != null && node.NativeInstance != IntPtr.Zero && !node.IsQueuedForDeletion();
         }
 
         public static bool HasAncestor(this Node node, Node ancestor)

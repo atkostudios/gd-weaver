@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Atko.GDLyra.Installation
+namespace Atko.GDWeaver.Installation
 {
     [Flags]
     public enum Install

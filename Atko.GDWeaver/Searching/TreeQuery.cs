@@ -1,7 +1,7 @@
 ﻿using System;
 using Godot;
 
-namespace Atko.GDLyra.Search
+namespace Atko.GDWeaver.Searching
 {
     public struct TreeQuery<T> where T : class
     {
