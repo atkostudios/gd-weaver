@@ -11,20 +11,22 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <DependsOnNETStandard>true</DependsOnNETStandard>
   </PropertyGroup>
+  <PropertyGroup>
+    <MirraPath>../../Atko.Mirra/Atko.Mirra/Atko.Mirra.csproj</MirraPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GodotSharp">
       <HintPath>../../.mono/assemblies/GodotSharp.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Atko.Mirra" Condition="Exists('../../Atko.Mirra/Atko.Mirra/bin/Release/netstandard2.0/Atko.Mirra.dll')">
-      <HintPath>../../Atko.Mirra/Atko.Mirra/bin/Release/netstandard2.0/Atko.Mirra.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <PackageReference Include="Fody" Version="3.3.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="NullGuard.Fody" Version="1.8.5" />
-    <PackageReference Include="Atko.Mirra" Version="0.0.1" Condition="!Exists('../../Atko.Mirra/Atko.Mirra/bin/Release/netstandard2.0/Atko.Mirra.dll')"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MirraPath)"/>
+    <PackageReference Include="Atko.Mirra" Version="0.0.2" Condition="!Exists($(MirraPath))"/>
   </ItemGroup>
 </Project>

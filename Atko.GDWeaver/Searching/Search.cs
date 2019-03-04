@@ -1,11 +1,12 @@
 ﻿using System;
 using Godot;
+using NullGuard;
 
 namespace Atko.GDWeaver.Searching
 {
     public static class Search
     {
-        public static bool Exists(this Node node)
+        public static bool Exists([AllowNull] this Node node)
         {
             return node != null && node.NativeInstance != IntPtr.Zero && !node.IsQueuedForDeletion();
         }

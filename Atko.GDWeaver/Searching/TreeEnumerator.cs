@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Atko.GDWeaver.Utility;
 using Godot;
+using NullGuard;
 
 namespace Atko.GDWeaver.Searching
 {
@@ -10,7 +11,10 @@ namespace Atko.GDWeaver.Searching
         static readonly Pool<Stack<Node>> Stacks = new Pool<Stack<Node>>();
         static readonly Pool<Queue<Node>> Queues = new Pool<Queue<Node>>();
 
+        [AllowNull]
         public Node Current { get; private set; }
+
+        [AllowNull]
         object IEnumerator.Current => Current;
 
         readonly TreeEnumerationMode Mode;

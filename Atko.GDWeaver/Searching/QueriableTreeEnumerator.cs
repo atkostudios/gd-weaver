@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Godot;
+using NullGuard;
 
 namespace Atko.GDWeaver.Searching
 {
@@ -9,7 +10,10 @@ namespace Atko.GDWeaver.Searching
         where TElement : class
         where TInnerElement : class
     {
+        [AllowNull]
         public TElement Current { get; private set; }
+
+        [AllowNull]
         object IEnumerator.Current => Current;
 
         TInner Inner;

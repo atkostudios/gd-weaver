@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using NullGuard;
 
 namespace Atko.GDWeaver.Searching
 {
@@ -55,26 +56,31 @@ namespace Atko.GDWeaver.Searching
             return Every<TElement>(predicate);
         }
 
+        [return: AllowNull]
         public T At<T>() where T : class
         {
             return At(new TreeQuery<T>(null, null));
         }
 
+        [return: AllowNull]
         public T At<T>(string name) where T : class
         {
             return At(new TreeQuery<T>(name, null));
         }
 
+        [return: AllowNull]
         public T At<T>(Predicate<T> predicate) where T : class
         {
             return At(new TreeQuery<T>(null, predicate));
         }
 
+        [return: AllowNull]
         public TElement At(string name)
         {
             return At<TElement>(name);
         }
 
+        [return: AllowNull]
         public TElement At(Predicate<TElement> predicate)
         {
             return At<TElement>(predicate);
@@ -115,6 +121,7 @@ namespace Atko.GDWeaver.Searching
                 QueriableTreeEnumerator<TElement, TInner, TInnerElement>, TElement>, TType>(enumerator);
         }
 
+        [return: AllowNull]
         TType At<TType>(TreeQuery<TType> query) where TType : class
         {
             foreach (var element in Every(query))

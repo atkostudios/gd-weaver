@@ -1,4 +1,5 @@
 ﻿using System;
+using NullGuard;
 
 namespace Atko.GDWeaver.Installation
 {
@@ -8,6 +9,7 @@ namespace Atko.GDWeaver.Installation
         /// <summary>
         /// The name of the target node to install. Defaults to the name of the field or property if not specified.
         /// </summary>
+        [AllowNull]
         public string Name { get; set; }
 
         /// <summary>
@@ -21,6 +23,7 @@ namespace Atko.GDWeaver.Installation
         /// root node when searching for installed nodes rather than the current node. If this option is not provided,
         /// or the specified root node is not found, the current node will be used as the root.
         /// </summary>
+        [AllowNull]
         public Type From { get; set; }
 
         public bool HasFlag(Install flag)

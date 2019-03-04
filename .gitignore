@@ -10,4 +10,6 @@ obj
 
 FodyWeavers.xsd
 
+mono_crash.*.json
+
 .DS_Store

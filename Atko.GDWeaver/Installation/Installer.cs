@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 using Atko.GDWeaver.Utility;
 using Atko.GDWeaver.Searching;
 using Atko.Mirra.Images;
@@ -8,7 +9,6 @@ using Godot;
 
 using static System.Reflection.BindingFlags;
 using static Atko.GDWeaver.Installation.Install;
-using System.Linq;
 
 namespace Atko.GDWeaver.Installation
 {
@@ -85,7 +85,6 @@ namespace Atko.GDWeaver.Installation
         /// </summary>
         struct SearchParameters
         {
-
             /// <summary>
             /// The name of the target node. This is null if a name option is not provided.
             /// </summary>
@@ -121,7 +120,6 @@ namespace Atko.GDWeaver.Installation
                 IsOptional = attribute.HasFlag(Optional);
                 FromType = attribute.From;
             }
-
         }
 
         /// <summary>
@@ -201,7 +199,7 @@ namespace Atko.GDWeaver.Installation
 
         static string GenerateNotFoundMessage(Node node, SearchParameters parameters)
         {
-            var nodeDescription = $"[{node.Name}] of type [({node.GetType().Name})]";
+            var nodeDescription = $"[{node.Name}] of type [{node.GetType().Name}]";
             var searchDescription = parameters.SearchName != null ? $"with name [{parameters.SearchName}] " : "";
             var term = parameters.IsAncestor ? "ancestor" : "descendant";
 

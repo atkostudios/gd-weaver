@@ -1,5 +1,6 @@
 ﻿using System;
 using Godot;
+using NullGuard;
 
 namespace Atko.GDWeaver.Searching
 {
@@ -8,7 +9,7 @@ namespace Atko.GDWeaver.Searching
         readonly string Name;
         readonly Predicate<T> Predicate;
 
-        public TreeQuery(string name, Predicate<T> predicate)
+        public TreeQuery([AllowNull] string name, [AllowNull] Predicate<T> predicate)
         {
             Name = name;
             Predicate = predicate;
