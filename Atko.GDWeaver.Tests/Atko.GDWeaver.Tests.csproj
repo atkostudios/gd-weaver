@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../Atko.GDWeaver/Atko.GDWeaver.csproj" />
+    <!-- <PackageReference Include="Atko.GDWeaver" Version="0.0.1"/> -->
   </ItemGroup>
   <ItemGroup>
     <Compile Include="**/*.cs" />
