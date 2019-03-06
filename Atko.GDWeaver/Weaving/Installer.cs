@@ -8,11 +8,11 @@ using Atko.Mirra.Images;
 using Godot;
 
 using static System.Reflection.BindingFlags;
-using static Atko.GDWeaver.Installation.Install;
+using static Atko.GDWeaver.Weaving.Install;
 
-namespace Atko.GDWeaver.Installation
+namespace Atko.GDWeaver.Weaving
 {
-    public static class Installer
+    static class Installer
     {
         struct Target
         {
@@ -125,7 +125,7 @@ namespace Atko.GDWeaver.Installation
         /// <summary>
         /// Search for and install all nodes specified by <see cref="InstallAttribute"/> on fields and properties.
         /// </summary>
-        public static void InstallNodes(this Node node)
+        public static void Run(Node node)
         {
             var type = node.GetType();
 
@@ -138,18 +138,6 @@ namespace Atko.GDWeaver.Installation
                 }
 
                 target.Accessor.Set(node, installed);
-            }
-        }
-
-        /// <summary>
-        /// Apply <see cref="InstallNodes"/> to the provided node and all of its descendants.
-        /// </summary>
-        public static void InstallNodesRecursive(this Node node)
-        {
-            InstallNodes(node);
-            foreach (var descendant in node.Descend())
-            {
-                InstallNodes(descendant);
             }
         }
 

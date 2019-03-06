@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Atko.GDWeaver.Installation
+namespace Atko.GDWeaver.Weaving
 {
     [Flags]
     public enum Install
