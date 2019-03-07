@@ -3,6 +3,16 @@ using NullGuard;
 
 namespace Atko.GDWeaver.Weaving
 {
+    /// <summary>
+    /// Attribute that marks a method as a signal handler.
+    ///
+    /// When <see cref="Weaver.Weave"/> is called on the current node, if no <see cref="Emitter"/> parameter is
+    /// provided, the current node will be used as the source of the signal. If an <see cref="Emitter"/> is provided,
+    /// the node contained in the field or property <see cref="Emitter"/> refers to will be used as the source of the
+    /// signal.
+    ///
+    /// Connection of signals occurs after installation of nodes via <see cref="InstallAttribute"/>.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class ConnectAttribute : Attribute
     {

@@ -3,6 +3,17 @@ using NullGuard;
 
 namespace Atko.GDWeaver.Weaving
 {
+    /// <summary>
+    /// Attribute that marks a field or property as a reference to another node present somewhere in the scene tree
+    /// relative to the current node.
+    ///
+    /// When <see cref="Weaver.Weave"/> is called on the current node, marked fields or properties will have their
+    /// desired nodes searched for according to this attribute's configuration. If the desired node is found, a
+    /// reference to it will be placed into the field or property. Otherwise, if the attribute is not marked as
+    /// <see cref="Install.Optional"/>, an exception is thrown.
+    ///
+    /// Installation of nodes occurs before connection of signals via <see cref="ConnectAttribute"/>.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class InstallAttribute : Attribute
     {
