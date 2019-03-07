@@ -96,7 +96,7 @@ namespace Atko.GDWeaver.Searching
             return GetEnumerator();
         }
 
-        public QueriableTreeEnumerator<TElement, TInner, TInnerElement> GetTypedEnumerator()
+        QueriableTreeEnumerator<TElement, TInner, TInnerElement> GetTypedEnumerator()
         {
             var enumerator = new QueriableTreeEnumerator<TElement, TInner, TInnerElement>(Inner, Query);
             for (var i = 0; i < Skip; i++)

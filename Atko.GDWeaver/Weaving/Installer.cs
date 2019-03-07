@@ -74,42 +74,12 @@ namespace Atko.GDWeaver.Weaving
             }
         }
 
-        /// <summary>
-        /// Event emitted when an install-related node could not be found. Provides the node the installation failed on
-        /// and an error message specifying what went wrong.
-        /// </summary>
-        public static event Action<Node, string> FailedEvent;
-
-        /// <summary>
-        /// Parameters for <see cref="Search"/> specifying how to find the target node.
-        /// </summary>
         struct SearchParameters
         {
-            /// <summary>
-            /// The name of the target node. This is null if a name option is not provided.
-            /// </summary>
             public string SearchName { get; }
-
-            /// <summary>
-            /// The type of the target node to search for. Defaults to <see cref="Node"/>
-            /// </summary>
             public TypeImage SearchType { get; }
-
-            /// <summary>
-            /// True if the target node is an ancestor of the current node. Otherwise the target node is a descendant.
-            /// </summary>
             public bool IsAncestor { get; }
-
-            /// <summary>
-            /// True if no error should be emitted when the target node is not found.
-            /// </summary>
             public bool IsOptional { get; }
-
-            /// <summary>
-            /// The type of the root node to use. If this is not null during a search, we scan up the tree to find an
-            /// ancestor of the provided type and search for installed nodes using that ancestor as the root rather than
-            /// the current node. If the specified root node is not found the root will default to the current node.
-            /// </summary>
             public TypeImage FromType { get; }
 
             public SearchParameters(InstallAttribute attribute, AccessorImage accessor)
@@ -122,9 +92,6 @@ namespace Atko.GDWeaver.Weaving
             }
         }
 
-        /// <summary>
-        /// Search for and install all nodes specified by <see cref="InstallAttribute"/> on fields and properties.
-        /// </summary>
         public static void Run(Node node)
         {
             var type = node.GetType();
@@ -166,23 +133,13 @@ namespace Atko.GDWeaver.Weaving
             {
                 if (!parameters.IsOptional)
                 {
-                    InstallError(root, GenerateNotFoundMessage(root, parameters));
+                    throw new GDWeaverException(GenerateNotFoundMessage(root, parameters));
                 }
 
                 return null;
             }
 
             return result;
-        }
-
-        static void InstallError(Node node, string message)
-        {
-            if (FailedEvent == null)
-            {
-                throw new ArgumentException(message);
-            }
-
-            FailedEvent(node, message);
         }
 
         static string GenerateNotFoundMessage(Node node, SearchParameters parameters)

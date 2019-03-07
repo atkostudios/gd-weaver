@@ -4,7 +4,7 @@ using NullGuard;
 
 namespace Atko.GDWeaver.Searching
 {
-    public struct TreeQuery<T> where T : class
+    struct TreeQuery<T> where T : class
     {
         readonly string Name;
         readonly Predicate<T> Predicate;
