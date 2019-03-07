@@ -19,6 +19,5 @@ namespace Atko.GDWeaver.Weaving
             Installer.Run(node);
             Connector.Run(node);
         }
-
     }
 }
