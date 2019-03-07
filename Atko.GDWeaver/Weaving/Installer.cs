@@ -44,7 +44,7 @@ namespace Atko.GDWeaver.Weaving
                 {
                     var accessors = type
                         .Accessors()
-                        .Where((current) => !current.IsStatic)
+                        .Instance()
                         .Where((current) => current.CanSet);
 
                     foreach (var accessor in accessors)

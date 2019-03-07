@@ -9,12 +9,10 @@ namespace Atko.GDWeaver.Weaving
         public static void Run(Node node)
         {
             var type = node.GetType().Image();
-            var methods = type.Methods().Where((current) => !current.IsStatic);
 
-            foreach (var method in methods)
+            foreach (var method in type.Methods().Instance())
             {
-                var attributes = method.Attributes<ConnectAttribute>();
-                foreach (var attribute in attributes)
+                foreach (var attribute in method.Attributes<ConnectAttribute>())
                 {
                     var signal = attribute.Signal;
                     var emitter = attribute.Emitter == null
