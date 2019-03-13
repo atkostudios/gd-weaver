@@ -8,7 +8,7 @@ namespace Atko.GDWeaver.Weaving
     /// </summary>
     public class WeaveListener : Node
     {
-        internal WeaveListener()
+        public WeaveListener()
         {
             Name = nameof(WeaveListener);
         }
