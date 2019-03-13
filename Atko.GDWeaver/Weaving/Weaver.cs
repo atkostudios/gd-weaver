@@ -18,15 +18,5 @@ namespace Atko.GDWeaver.Weaving
             Installer.Run(node);
             Connector.Run(node);
         }
-
-        /// <summary>
-        /// Automatically apply <see cref="Weaver.Weave"/> to all nodes when they are added to the scene tree. Should
-        /// only be called once or as the scene changes.
-        /// </summary>
-        /// <param name="tree">A reference to the active scene tree.</param>
-        public static void Inject(SceneTree tree)
-        {
-            tree.Root.AddChild(new WeaveListener());
-        }
     }
 }
