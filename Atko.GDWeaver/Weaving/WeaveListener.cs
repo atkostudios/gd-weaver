@@ -13,8 +13,13 @@ namespace Atko.GDWeaver.Weaving
             Name = nameof(WeaveListener);
         }
 
-        public override void _Ready()
+        public override void _EnterTree()
         {
+            if (GetTree().IsConnected("node_added", this, nameof(Weave)))
+            {
+                return;
+            }
+
             GetTree().Connect("node_added", this, nameof(Weave));
         }
 
