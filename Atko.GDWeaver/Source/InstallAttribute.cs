@@ -1,7 +1,7 @@
 ﻿using System;
 using NullGuard;
 
-namespace Atko.GDWeaver.Weaving
+namespace Atko.GDWeaver
 {
     /// <summary>
     /// Attribute that marks a field or property as a reference to another node present somewhere in the scene tree
@@ -43,20 +43,9 @@ namespace Atko.GDWeaver.Weaving
         /// <param name="flags"><see cref="Flags"/></param>
         /// <param name="name"><see cref="Name"/></param>
         /// <param name="from"><see cref="From"/></param>
-        public InstallAttribute(Install flags = default(Install), string name = null, Type from = null)
+        public InstallAttribute(Install flags, string name, Type from)
         {
             Flags = flags;
-            Name = name;
-            From = from;
-        }
-
-        /// <summary>
-        /// Create a new <see cref="InstallAttribute"/> with the provided name and from type.
-        /// </summary>
-        /// <param name="name"><see cref="Name"/></param>
-        /// <param name="from"><see cref="From"/></param>
-        public InstallAttribute(string name, Type from)
-        {
             Name = name;
             From = from;
         }
@@ -73,6 +62,46 @@ namespace Atko.GDWeaver.Weaving
         }
 
         /// <summary>
+        /// Create a new <see cref="InstallAttribute"/> with the provided flags and name.
+        /// </summary>
+        /// <param name="flags"><see cref="Flags"/></param>
+        /// <param name="name"><see cref="Name"/></param>
+        public InstallAttribute(Install flags, string name)
+        {
+            Flags = flags;
+            Name = name;
+        }
+
+        /// <summary>
+        /// Create a new <see cref="InstallAttribute"/> with the provided name and from type.
+        /// </summary>
+        /// <param name="name"><see cref="Name"/></param>
+        /// <param name="from"><see cref="From"/></param>
+        public InstallAttribute(string name, Type from)
+        {
+            Name = name;
+            From = from;
+        }
+
+        /// <summary>
+        /// Create a new <see cref="InstallAttribute"/> with the provided flags.
+        /// </summary>
+        /// <param name="flags"><see cref="Flags"/></param>
+        public InstallAttribute(Install flags)
+        {
+            Flags = flags;
+        }
+
+        /// <summary>
+        /// Create a new <see cref="InstallAttribute"/> with the provided name.
+        /// </summary>
+        /// <param name="name"><see cref="Name"/></param>
+        public InstallAttribute(string name)
+        {
+            Name = name;
+        }
+
+        /// <summary>
         /// Create a new <see cref="InstallAttribute"/> with the provided from type.
         /// </summary>
         /// <param name="from"><see cref="From"/></param>
@@ -80,6 +109,12 @@ namespace Atko.GDWeaver.Weaving
         {
             From = from;
         }
+
+        /// <summary>
+        /// Create a new <see cref="InstallAttribute"/> with the default configuration.
+        /// </summary>
+        public InstallAttribute()
+        { }
 
         internal bool HasFlag(Install flag)
         {

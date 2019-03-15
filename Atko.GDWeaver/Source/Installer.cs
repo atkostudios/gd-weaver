@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using Atko.GDWeaver.Utility;
-using Atko.GDWeaver.Searching;
 using Atko.Mirra.Images;
 using Godot;
 
 using static System.Reflection.BindingFlags;
-using static Atko.GDWeaver.Weaving.Install;
+using static Atko.GDWeaver.Install;
 
-namespace Atko.GDWeaver.Weaving
+namespace Atko.GDWeaver
 {
     static class Installer
     {

@@ -1,6 +1,6 @@
-using Atko.GDWeaver.Weaving;
 using Godot;
 using System;
+using Atko.GDWeaver;
 
 public class Tests : Button
 {
@@ -11,17 +11,13 @@ public class Tests : Button
     {
         GD.Print("TESTING...");
 
-        GD.Print("CHILD IS NULL BEFORE INSTALL: " + (Child == null));
-        GD.Print("OPTIONAL CHILD IS NULL BEFORE INSTALL: " + (MissingChild == null));
-
-        Weaver.Weave(this);
-
         GD.Print("CHILD IS NOT NULL AFTER INSTALL: " + (Child != null));
         GD.Print("OPTIONAL CHILD IS NULL AFTER INSTALL: " + (MissingChild == null));
 
-        GD.Print("DONE");
         EmitSignal("pressed");
         Child.EmitSignal("pressed");
+
+        GD.Print("DONE");
     }
 
     [Connect("pressed")]

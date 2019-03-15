@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Atko.GDWeaver.Utility;
 using Godot;
 using NullGuard;
 
-namespace Atko.GDWeaver.Searching
+namespace Atko.GDWeaver
 {
     public struct TreeEnumerator : IEnumerator<Node>
     {

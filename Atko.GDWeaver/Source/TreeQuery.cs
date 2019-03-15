@@ -2,7 +2,7 @@
 using Godot;
 using NullGuard;
 
-namespace Atko.GDWeaver.Searching
+namespace Atko.GDWeaver
 {
     struct TreeQuery<T> where T : class
     {

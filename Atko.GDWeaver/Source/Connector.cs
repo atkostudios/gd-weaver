@@ -2,7 +2,7 @@ using System.Linq;
 using Atko.Mirra.Images;
 using Godot;
 
-namespace Atko.GDWeaver.Weaving
+namespace Atko.GDWeaver
 {
     static class Connector
     {

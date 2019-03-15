@@ -18,6 +18,10 @@ _global_script_class_icons={
 config/name="Atko.GDWeaver.Tests"
 config/icon="res://icon.png"
 
+[autoload]
+
+AutoWeaver="*res://AutoWeaver.tscn"
+
 [mono]
 
 project/auto_update_project=false

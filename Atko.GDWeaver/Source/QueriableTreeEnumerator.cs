@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Godot;
 using NullGuard;
 
-namespace Atko.GDWeaver.Searching
+namespace Atko.GDWeaver
 {
     public struct QueriableTreeEnumerator<TElement, TInner, TInnerElement> : IEnumerator<TElement>
         where TInner : struct, IEnumerator<TInnerElement>

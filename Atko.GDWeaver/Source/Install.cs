@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Atko.GDWeaver.Weaving
+namespace Atko.GDWeaver
 {
     /// <summary>
     /// Configuration flags for <see cref="InstallAttribute"/>.

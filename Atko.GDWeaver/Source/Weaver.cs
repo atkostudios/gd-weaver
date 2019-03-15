@@ -1,14 +1,26 @@
-﻿using System;
+using System;
 using Godot;
+using Atko.GDWeaver;
 using NullGuard;
 
-namespace Atko.GDWeaver.Searching
+namespace Atko.GDWeaver
 {
     /// <summary>
-    /// Utility for fast search, query and iteration of nodes in the scene tree.
+    /// Utility to make using nodes and signals easier.
     /// </summary>
-    public static class Search
+    public static class Weaver
     {
+        /// <summary>
+        /// Install node references on a given node according to instances of <see cref="InstallAttribute"/>, then
+        /// connect signals according to instances of <see cref="ConnectAttribute"/>.
+        /// </summary>
+        /// <param name="node">The node to weave node references and signals for.</param>
+        public static void Weave(this Node node)
+        {
+            Installer.Run(node);
+            Connector.Run(node);
+        }
+
         /// <summary>
         /// Returns true if a given node is not null, has not been freed and is not queued to be freed.
         /// </summary>

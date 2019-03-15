@@ -1,7 +1,7 @@
 using System;
 using NullGuard;
 
-namespace Atko.GDWeaver.Weaving
+namespace Atko.GDWeaver
 {
     /// <summary>
     /// Attribute that marks a method as a signal handler.

@@ -1,18 +1,16 @@
 using Godot;
 
-namespace Atko.GDWeaver.Weaving
+namespace Atko.GDWeaver
 {
     /// <summary>
     /// Node which, when present in the scene tree, will automatically call <see cref="Weaver.Weave"/> on nodes as soon
     /// as they are added to the tree.
-    /// </summary>
-    public class WeaveListener : Node
+    ///
+    /// To use: Create a script that inherits <see cref="AutoWeaverBase"/>, add it to a single node scene, then add
+    /// that scene to your auto-loads.
+    ///
+    public class AutoWeaverBase : Node
     {
-        public WeaveListener()
-        {
-            Name = nameof(WeaveListener);
-        }
-
         public override void _EnterTree()
         {
             if (GetTree().IsConnected("node_added", this, nameof(Weave)))

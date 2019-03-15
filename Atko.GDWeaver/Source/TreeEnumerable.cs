@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using NullGuard;
 
-namespace Atko.GDWeaver.Searching
+namespace Atko.GDWeaver
 {
     public struct TreeEnumerable<TElement, TInner, TInnerElement> : IEnumerable<TElement>
         where TElement : class
