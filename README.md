@@ -14,8 +14,6 @@ GDWeaver is a library for Godot Engine designed to make using nodes and signals 
 
 ## Documentation
 
----
-
 ```csharp
 using Atko.GDWeaver;
 ```
@@ -29,26 +27,31 @@ The most central class of GDWeaver is `Weaver`. This static class contains exten
 The most important method contained in `Weaver` is `Weaver.Weave(Node)`. The `Weave` method does two primary operations for the given node:
 
 1. *Installs* node references according to `Install` attributes.
+
 2. *Connects* signals according to `Connect` attributes.
 
 In order to start weaving nodes, you have two options:
 
 1. Call `Weave()` yourself for every node: 
+
     ```csharp
     public override void _EnterTree() 
     {
         Weaver.Weave(this);
     }
     ```
+
 2. Add an `AutoWeaver` to your project's auto-loads. The `AutoWeaver` will automatically call `Weave()` on every node as it enters the tree. This is far easier than the first method. To add an `AutoWeaver`:
 
     1. Create a new, single-node scene called `AutoWeaver`.
     2. Create an empty script class called `AutoWeaver` that inherits `AutoWeaverBase`.
-    ```csharp
-    using Atko.GDWeaver;
 
-    public class AutoWeaver : AutoWeaverBase { }
-    ```
+        ```csharp
+        using Atko.GDWeaver;
+
+        public class AutoWeaver : AutoWeaverBase { }
+        ```
+
     3. Add the script to the root node in the scene. 
     4. Add the scene to your project's auto-loads.
     5. Enjoy.
