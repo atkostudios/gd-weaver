@@ -28,7 +28,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="$(MirraPath)"/>
+    <ProjectReference Include="$(MirraPath)" Condition="Exists($(MirraPath))"/>
     <PackageReference Include="Atko.Mirra" Version="0.0.*" Condition="!Exists($(MirraPath))">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
