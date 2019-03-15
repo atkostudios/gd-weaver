@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Atko.GDWeaver</PackageId>
-    <Version>0.0.6</Version>
+    <Version>0.0.7</Version>
     <Authors>comfort-stereo</Authors>
     <Company>Atko</Company>
     <Description>A utility library for Godot Engine that makes it easier to find and use nodes.</Description>
