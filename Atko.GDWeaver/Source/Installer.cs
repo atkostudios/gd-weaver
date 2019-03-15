@@ -78,7 +78,6 @@ namespace Atko.GDWeaver
             public TypeImage SearchType { get; }
             public bool IsAncestor { get; }
             public bool IsOptional { get; }
-            public TypeImage FromType { get; }
 
             public SearchParameters(InstallAttribute attribute, AccessorImage accessor)
             {
@@ -86,7 +85,6 @@ namespace Atko.GDWeaver
                 SearchType = accessor.DeclaredType;
                 IsAncestor = attribute.HasFlag(Ancestor);
                 IsOptional = attribute.HasFlag(Optional);
-                FromType = attribute.From;
             }
         }
 
@@ -108,18 +106,7 @@ namespace Atko.GDWeaver
 
         static Node Search(Node node, SearchParameters parameters)
         {
-            var root = node;
-
-            if (parameters.FromType != null)
-            {
-                root = node.Ascend().At((current) =>
-                {
-                    var type = current.GetType().Image();
-                    return type.IsAssignableTo(parameters.FromType);
-                });
-            }
-
-            var nodes = parameters.IsAncestor ? root.Ascend() : root.Descend();
+            var nodes = parameters.IsAncestor ? node.Ascend() : node.Descend();
             var result = nodes.At((current) =>
             {
                 var type = current.GetType().Image();
@@ -131,7 +118,7 @@ namespace Atko.GDWeaver
             {
                 if (!parameters.IsOptional)
                 {
-                    throw new GDWeaverException(GenerateNotFoundMessage(root, parameters));
+                    throw new GDWeaverException(GenerateNotFoundMessage(node, parameters));
                 }
 
                 return null;
